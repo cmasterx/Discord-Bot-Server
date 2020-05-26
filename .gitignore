@@ -104,3 +104,4 @@ dist
 .tern-port
 
 # config files
+config.json
