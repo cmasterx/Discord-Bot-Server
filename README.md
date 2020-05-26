@@ -7,7 +7,7 @@ A custom discord bot
 3. Run `$ npm install`
 4. Create a __config.json__ file
 
-__Config File (config.json)__
+__Config File (config.json)__ \
 This file must exist at the repository root directory
 ```javascript
 {
