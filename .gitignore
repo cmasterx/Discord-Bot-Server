@@ -10,3 +10,4 @@ program
 
 # node.js
 node_modules
+config.json

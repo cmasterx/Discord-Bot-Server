@@ -1,5 +1,5 @@
 # Calling a program in python
 from subprocess import call
 
-command = ['screen', '-r', './program']
+command = ['screen', './program']
 call(command, shell=False)
