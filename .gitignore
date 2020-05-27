@@ -1,0 +1,9 @@
+# VS Code
+.vscode/
+
+# C++
+*.out
+program
+
+# python
+.env/
