@@ -1,6 +1,7 @@
 import os
 import json
 import psutil
+import subprocess
 from subprocess import call
 from flask import Flask, jsonify, request
 from flask_cors import CORS
@@ -12,7 +13,7 @@ CORS(app)
 def start(progname):
     command = ['screen', './{}'.format(progname), '&']
     print(progname)
-    call(command, shell=False)
+    subprocess.Popen(command)
     return "Program called"
 
 @app.route('/stop/<string:progname>', methods=['GET'])
