@@ -1,9 +1,43 @@
 const fs = require('fs');
 const express = require('express');
 const Discord = require('discord.js');
-const client = new Discord.Client();
+const request = require('request');
 const config = require('./config.json');
+const packageInfo = require('./package.json');
+
+const client = new Discord.Client();
 const prefix = config.prefix;
+const urls = {};
+
+function login(token = null) {
+    client.login(token || config.token);
+}
+
+// Setting up urls
+// parses package.json for repository url
+{
+    let repoURL = packageInfo.repository.url;
+    let idx = repoURL.indexOf('http');
+    let offset = repoURL.indexOf('https://') != -1 ? 8 : 7;
+    urls.repo = {};
+    urls.repo.url = repoURL.substr(idx + offset);
+    
+    switch (offset) {
+        case 7:
+            urls.repo.protocol = "http://";
+            break;
+        case 8:
+            urls.repo.protocol = "https://";
+            break;
+    }
+
+    if (repoURL.endsWith('.git')) {
+        urls.repo.url = urls.repo.url.substr(0, urls.repo.url.lastIndexOf('.git'));
+    }
+}
+
+
+// Set up discord message responses
 
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -21,7 +55,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.content == `${prefix}about` || msg.content == `${prefix}info`) {
-        msg.reply('Github: https://github.com/cmasterx/Discord-Bot-Server');
+        msg.reply(`Github: ${urls.repo.protocol}${urls.repo.url}`);
     }
 });
 
@@ -31,24 +65,6 @@ client.on('message', msg => {
     }
 });
 
-function login(token = null) {
-    client.login(token || config.token);
-}
 
-function test() 
-{
 
-}
-
-function sayHi(user) {
-    alert(`Hello, ${user}!`);
-  }
-  
-  function sayBye(user) {
-    alert(`Bye, ${user}!`);
-  }
-  
-//   export {sayHi, sayBye, logi+n}; // a list of exported variables
-
-// console.log("test");
-export {login, test};
+login();

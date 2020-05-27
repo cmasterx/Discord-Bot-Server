@@ -1,3 +1,3 @@
-import { login } from './bot';
-// import {login} from "./bot";
-login();
+// import { login, client } from './bot';
+// // import {login} from "./bot";
+// login();
