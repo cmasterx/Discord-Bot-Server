@@ -2,18 +2,23 @@
   "name": "nodejs_test",
   "version": "1.0.0",
   "description": "Node.js test",
-  "main": "app.js",
+  "main": "bot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx babel-node app",
-    "dev": "npx babel-node app"
+    "start": "npx babel-node bot",
+    "dev": "nodemon --exec babel-node bot.js localhost 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmasterx/Discord-Bot-Server.git"
   },
   "author": "Charlemagne Wong",
   "license": "ISC",
   "dependencies": {
     "discord.js": "^12.2.0",
     "express": "^4.17.1",
-    "fs": "0.0.1-security"
+    "fs": "0.0.1-security",
+    "request": "^2.88.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
