@@ -7,3 +7,6 @@ program
 
 # python
 .env/
+
+# node.js
+node_modules
