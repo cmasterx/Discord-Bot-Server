@@ -38,11 +38,16 @@ def api_start(token):
     if request.method == 'POST':
         content = request.get_json()
         
-        if 'program' in content and 'program':
-            subprocess.Popen()
+        # todo fix
+        if 'program' in content and content['program'] in config['program']:
+            command = ['screen'] + content['program'] + ['&']
+            subprocess.Popen(command)
+            return jsonify({'success': True})
+        else:
+            return jsonify({'success': False})
         # if 'program' not in request.
 
-    return 'Done'
+    return jsonify({'invalid': False})
 
 if __name__ in '__main__':
     host = config['host'] if 'host' in config else '0.0.0.0'

@@ -33,7 +33,7 @@ numpy==1.18.4
 packaging==20.4
 pbr==5.4.5
 pexpect==4.8.0
-pkg-resources==0.0.0
+# pkg-resources==0.0.0
 pluggy==0.13.1
 prettytable==0.7.2
 property-manager==3.0
