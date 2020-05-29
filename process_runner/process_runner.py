@@ -71,7 +71,8 @@ def api_running(_token):
             else:
                 return jsonify({'valid': True, 'found': False})
         else:
-            return jsonify({'valid': False, 'message': 'Cannot process GET request. Either program is not a valid entry or no valid key in  URL'})
+            return jsonify({'valid': False, 'message': 'Cannot process GET request. \
+                Either program is not a valid entry or no valid key in  URL'})
 
             # check if program name is in list of programs
 
@@ -85,7 +86,7 @@ def api_stop(_token):
 
     if request.method == 'GET':
         program_name = request.args['program']
-        
+
         if 'program' in request.args and program_name in config['stop']:
             for proc in psutil.process_iter():
                 if proc.name() == program_name:
