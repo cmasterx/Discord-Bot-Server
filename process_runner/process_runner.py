@@ -84,8 +84,18 @@ def api_stop(_token):
         return jsonify({'valid': False, 'message': 'Invalid Token'})
 
     if request.method == 'GET':
-        if 'program' in request.args and request.args['program'] in config['stop']:
-            pass
+        program_name = request.args['program']
+        
+        if 'program' in request.args and program_name in config['stop']:
+            for proc in psutil.process_iter():
+                if proc.name() == program_name:
+                    proc.kill()
+                    return jsonify({'valid': True, 'killed': True})
+            
+            return jsonify({'valid': True, 'killed': False})
+
+        return jsonify({'valid': False, 'killed': False})
+            
     else:
         return jsonify({'valid': False, 'message': 'Unknown request'})
 

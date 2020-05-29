@@ -63,7 +63,7 @@ def v1(cfg):
         cfg['version'] = '1.0.0'
 
     if 'host' not in cfg:
-        cfg['cfg'] = '0.0.0.0'
+        cfg['host'] = '0.0.0.0'
 
     if 'port' not in cfg:
         cfg['port'] = 8010
