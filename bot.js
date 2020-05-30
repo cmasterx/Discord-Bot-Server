@@ -98,23 +98,63 @@ client.on('ready', () => {
     // client.guilds.cache.get('606986012715122726').channels.cache.get('606986012715122734').send('Howdy! I am a test bot! I am currently stupid.');
     // bot channel
     client.guilds.cache.get('606986012715122726').channels.cache.get('714696455977435188').send('Bot is online!');
-    
+    console.log(client.guilds.cache.get('606986012715122726').members);
     // console.log(client.channels);
 })
 
 client.on('message', msg => {
-    if (msg.content == `${prefix}about` || msg.content == `${prefix}info`) {
+    if (msg.content === `${prefix}help`) {
+        msg.channel.send('TODO: Implement this feature');
+    }
+})
+
+client.on('message', msg => {
+    if (msg.content === `${prefix}about` || msg.content == `${prefix}info`) {
         msg.reply(`Github: ${urls.repo.protocol}${urls.repo.url}`);
     }
 });
 
 client.on('message', msg => {
-    if (msg.content == `${prefix}test`) {
+    if (msg.content === `${prefix}test`) {
         msg.reply('test');
     }
 });
 
+client.on('message', msg => {
+    if (msg.content === `${prefix}minecraft start`) {
 
+        if (msg.channel.type === "dm") {
+            msg.reply('This command cannot be used as DM to a bot. Send this command to a channel instead.');
+        }
+        else {
+            msg.reply('Starting minecraft server.');
+        }
+    }
+})
+
+client.on('message', msg => {
+    if (msg.content === `${prefix}minecraft stop`) {
+
+        if (msg.channel.type === "dm") {
+            msg.reply('This command cannot be used as DM to a bot. Send this command to a channel instead.');
+        }
+        else {
+            msg.reply('Stopping minecraft server.');
+        }
+    }
+})
+
+client.on('message', msg => {
+    if (msg.content === `${prefix}minecraft running`) {
+
+        if (msg.channel.type === "dm") {
+            msg.reply('This command cannot be used as DM to a bot. Send this command to a channel instead.');
+        }
+        else {
+            msg.reply('Stopping minecraft server.');
+        }
+    }
+})
 
 let response = client.login(config.token);
 response.catch(err => {
