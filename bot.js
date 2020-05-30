@@ -98,7 +98,7 @@ client.on('ready', () => {
     // client.guilds.cache.get('606986012715122726').channels.cache.get('606986012715122734').send('Howdy! I am a test bot! I am currently stupid.');
     // bot channel
     client.guilds.cache.get('606986012715122726').channels.cache.get('714696455977435188').send('Bot is online!');
-    console.log(client.guilds.cache.get('606986012715122726').members);
+    
     // console.log(client.channels);
 })
 
