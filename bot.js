@@ -141,7 +141,7 @@ client.on('message', msg => {
                     if (error) {
                         console.error(error);
                         msg.channel.send('Uh oh... There seems to be an error! Tell Charlie about this! The error is: ');
-                        msg.channel.send(error);
+                        msg.channel.send(error.toString());
 
                         
                         return;
