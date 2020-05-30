@@ -1,0 +1,7 @@
+{
+    "version": "1.0.0",
+    "token": "",
+    "prefix": "!",
+    "processRunnerURL": "http://localhost:8010/api/",
+    "processRunnerToken": ""
+}
