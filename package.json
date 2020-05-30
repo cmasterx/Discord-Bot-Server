@@ -15,6 +15,9 @@
   "author": "Charlemagne Wong",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.0.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "discord.js": "^12.2.0",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
@@ -24,6 +27,7 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.6",
     "@babel/node": "^7.8.7",
-    "@babel/preset-env": "^7.9.6"
+    "@babel/preset-env": "^7.9.6",
+    "nodemon": "^2.0.4"
   }
 }
