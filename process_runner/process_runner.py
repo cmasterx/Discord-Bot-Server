@@ -34,20 +34,24 @@ except Exception as err:
     exit()
 
 # todo start only program in config file
-@app.route('/api/<string:_token>/start/', methods=['GET', 'POST'])
+@app.route('/api/<string:_token>/start', methods=['GET', 'POST'])
 def api_start(_token):
     
     if _token != token:
+        print("Invalid token!")
         return jsonify({'valid': False, 'message': 'Invalid Token'})
     
+    print("This is the stuff: ")
     if request.method == 'POST':
         content = request.get_json()
+        print("This is the stuff: ")
+        print(content)
         
         # todo fix
         if 'program' in content and content['program'] in config['program']:
             command = ['screen'] + content['program']
             subprocess.Popen(command)
-            return jsonify({'success': True})
+            return jsonify({'success': True, 'ip': "mc.cmasterx.com"})
         else:
             return jsonify({'success': False})
         # if 'program' not in request.

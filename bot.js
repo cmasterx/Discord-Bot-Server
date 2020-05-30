@@ -1,4 +1,5 @@
 const fs = require('fs');
+const url = require('url')
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
@@ -11,7 +12,7 @@ const chalk = require('chalk');
 try {
     if (!fs.existsSync(path.join(__dirname, './config.json'))) {
         console.log('config.json not found. Creating from template.')
-        fs.copyFileSync(path.join(__dirname, './resources/config.json'), path.join(__dirname, './config.json'));
+        fs.copyFileSync(path.join(__dirname, './resources/model.config.json'), path.join(__dirname, './config.json'));
         console.log('config.json created. Edit this file and start program again.')
         process.exit();    
     }
@@ -28,7 +29,7 @@ const packageInfo = require(path.join(__dirname, './package.json'));
 // check config file for any missing keys
 {
     let changed = false;
-    let modelConfig = require(path.join(__dirname, './resources/config.json'));
+    let modelConfig = require(path.join(__dirname, './resources/model.config.json'));
     
     // check for each key in model config
     for (var key in modelConfig) {
@@ -128,6 +129,43 @@ client.on('message', msg => {
         }
         else {
             msg.reply('Starting minecraft server.');
+
+            request.post(
+                { 
+                    url: url.resolve(config.processRunnerURL, config.processRunnerToken + '/start'),
+                    json: {
+                        "program": ["/home/charliew/Documents/mcserver/start.sh"]
+                    }
+                },
+                function (error, res, body) {
+                    if (error) {
+                        console.error(error);
+                        msg.channel.send('Uh oh... There seems to be an error! Tell Charlie about this! The error is: ');
+                        msg.channel.send(error);
+
+                        
+                        return;
+                    }
+
+                    if ('success' in body && body.success === true && 'ip' in body) {
+                        msg.channel.send(`Server is online! The IP address is ${body.ip}`)
+                    }
+
+                    msg.channel.send('DEBUG MODE - Pytho Server Resonse: ' + JSON.stringify(body));
+                }
+            );
+            
+            // request.post(, , (error, res, body) => {
+            //     if (error) {
+            //         console.error(error);
+            //         msg.channel.send('Uh oh... There seems to be an error! Tell Charlie about this! The error is: ');
+            //         msg.channel.send(error);
+            //         return;
+            //     }
+
+            //     msg.channel.send('DEBUG MODE: ');
+            //     console.log(body)
+            // })
         }
     }
 })
