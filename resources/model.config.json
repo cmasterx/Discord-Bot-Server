@@ -3,5 +3,6 @@
     "token": "",
     "prefix": "!",
     "processRunnerURL": "http://localhost:8010/api/",
-    "processRunnerToken": ""
+    "processRunnerToken": "",
+    "website_port": 8000
 }

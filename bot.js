@@ -4,6 +4,7 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 const Discord = require('discord.js');
 const request = require('request');
 const chalk = require('chalk');
@@ -60,7 +61,7 @@ const staticPath = path.join(__dirname, './public');
 app.use(cors());
 app.use(cookieParser());
 app.use(express.static(staticPath));
-// app.use() // ? do I need body parser here?
+app.use(bodyParser.json())
 
 
 // Setting up urls
@@ -194,6 +195,20 @@ client.on('message', msg => {
     }
 })
 
+
+/**
+ * Routes for website
+ */
+app.get('/*', (req, res) => {
+    res.status(404).send("Error 404. You got the wrong link!");
+})
+
+// start webserver
+app.listen(config.website_port, () => {
+    console.log(`Listening to requests on http://localhost:${port}`);
+})
+
+// login to discord
 let response = client.login(config.token);
 response.catch(err => {
     console.error(chalk.redBright("error"), "Failed to login to Discord. Check if your discord bot token in", chalk.greenBright("config.json"), "is valid.");
