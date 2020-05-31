@@ -4,5 +4,6 @@
     "prefix": "!",
     "processRunnerURL": "http://localhost:8010/api/",
     "processRunnerToken": "",
-    "website_port": 8000
+    "website_port": 8000,
+    "mongodbURL": ""
 }

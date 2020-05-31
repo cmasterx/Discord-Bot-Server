@@ -1,3 +1,6 @@
+/**
+ * Imports
+ */
 const fs = require('fs');
 const url = require('url')
 const path = require('path');
@@ -8,6 +11,13 @@ const bodyParser = require('body-parser');
 const Discord = require('discord.js');
 const request = require('request');
 const chalk = require('chalk');
+const mongodb = require('mongodb');
+const crypto = require('crypto');
+const cryptoRandomString = require('crypto-random-string');
+const verify = require('./routes/verify');
+/**
+ * Initial setup
+ */
 
 // check for config file create if not exist
 try {
@@ -49,6 +59,10 @@ const packageInfo = require(path.join(__dirname, './package.json'));
     fs.writeFileSync(path.join(__dirname, './config.json'), JSON.stringify(config));
 }
 
+// Give config object to files requiring it
+verify.setConfig(config);
+
+// Setup for discord bot
 const client = new Discord.Client();
 const prefix = config.prefix;
 const urls = {};
@@ -58,10 +72,13 @@ const app = express();
 const port = process.env.PORT || "8000";
 const staticPath = path.join(__dirname, './public');
 
+module.exports = config;
+
 app.use(cors());
 app.use(cookieParser());
 app.use(express.static(staticPath));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use('/verify', verify.router);
 
 
 // Setting up urls
@@ -90,17 +107,42 @@ app.use(bodyParser.json())
 
 // Set up discord message responses
 
-client.on('ready', () => {
+client.on('ready', (msg) => {
     console.log('Logged in as', chalk.cyanBright(`${client.user.tag}!`));
     client.guilds.cache.forEach(guild => {
         console.log(`Guild: '${guild.name}' id: ${guild.id}`)
+        console.log(guild);
+
+        const mongoClient = new mongodb.MongoClient(config.mongodbURL, { useNewUrlParser: true });
+        mongoClient.connect(err => {
+            const collection = mongoClient.db("mc-discord-bot").collection("accounts");
+            collection.findOne({id: guild.id}, function(err, gID) {
+                if (gID) {
+
+                }
+                else {
+                    console.log("Can't find it");
+                }
+            })
+
+        })
     })
 
     // client channel
     // client.guilds.cache.get('606986012715122726').channels.cache.get('606986012715122734').send('Howdy! I am a test bot! I am currently stupid.');
     // bot channel
     client.guilds.cache.get('606986012715122726').channels.cache.get('714696455977435188').send('Bot is online!');
-    
+
+    // console.log(client.guilds);
+
+    const uri = config.mongodbURL;
+    const mongoClient = new mongodb.MongoClient(uri, { useNewUrlParser: true });
+    mongoClient.connect(err => {
+        const collection = mongoClient.db("mc-discord-bot").collection("accounts");
+        // for (var i = )
+        
+        mongoClient.close();
+    });
     // console.log(client.channels);
 })
 
