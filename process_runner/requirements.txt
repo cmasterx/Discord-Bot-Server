@@ -48,7 +48,7 @@ pyperclip==1.8.0
 python-secrets==20.4.2106
 pytz==2020.1
 PyYAML==5.4
-requests==2.23.0
+requests==2.32.2
 six==1.15.0
 snowballstemmer==2.0.0
 soupsieve==2.0.1
