@@ -68,7 +68,7 @@ urllib3==1.25.9
 verboselogs==1.7
 virtualenv==20.0.21
 wcwidth==0.1.9
-Werkzeug==1.0.1
+Werkzeug==3.0.3
 wrapt==1.12.1
 xkcdpass==1.17.3
 yamlreader==3.0.4
