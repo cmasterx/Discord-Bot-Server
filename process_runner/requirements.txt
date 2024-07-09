@@ -72,4 +72,4 @@ Werkzeug==3.0.3
 wrapt==1.12.1
 xkcdpass==1.17.3
 yamlreader==3.0.4
-zipp==3.1.0
+zipp==3.19.1
